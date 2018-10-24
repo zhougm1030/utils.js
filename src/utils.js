@@ -2,6 +2,18 @@ function Utils() {
 }
 
 Utils = {
+    isNumber:function(val){
+        var reg = /^[0-9]+?[0-9]*$/;
+        if(reg.test(val)){
+            console.error('这个值不是数字')
+            return false;
+        }
+        return true;
+    },
+    isString:function(input){
+
+    },
+
     /**
      * 半角英数字を全角英数字に変換する。
      * @param str
