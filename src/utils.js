@@ -2,33 +2,41 @@ function Utils() {
 }
 
 Utils = {
+    /**
+     * 整数判断
+     * @param number 值
+     * @returns {boolean}
+     */
     isInteger: function (number) {
         return (typeof number === 'number') && (number % 1 === 0);
     },
+    /**
+     * 字符串判断
+     * @param str 值
+     * @returns {boolean}
+     */
     isString: function (str) {
         return (typeof str === 'string' || Object.prototype.toString.call(str) === '[object String]')
     },
 
     /**
-     * 半角英数字を全角英数字に変換する。
-     * @param str
+     * 全角英数字转换为半角英数字
+     * @param str 值
      * @returns {string}
      */
     numberAndEnglishToCDB: function (str) {
         var tmp = "";
-        if (typeof(str) !== "string") {
-            console.error('str is not string')
-            return;
-        }
-        for (var i = 0; i < str.length; i++) {
-            // 文字のアンコールコードを取得すろ
-            var code = str.charCodeAt(i);
-            if (code >= 65281 && code <= 65373) {
-                // 全角文字を半角英数字に変換する
-                tmp += String.fromCharCode(str.charCodeAt(i) - 65248);
-            } else {
-                tmp += str.charAt(i);
+        if (this.isString(str)) {
+            for (var i = 0; i < str.length; i++) {
+                var code = str.charCodeAt(i);
+                if (code >= 65281 && code <= 65373) {
+                    tmp += String.fromCharCode(str.charCodeAt(i) - 65248);
+                } else {
+                    tmp += str.charAt(i);
+                }
             }
+        } else {
+            console.error('这不是一个字符串')
         }
         return tmp;
     },
