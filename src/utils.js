@@ -8,7 +8,7 @@ Utils = {
      * @returns {boolean}
      */
     isInteger: function (number) {
-        return (typeof number === 'number') && (number % 1 === 0);
+        return (typeof number === 'number') && (number % 1 === 0) || Object.prototype.toString.call(number) === '[object Integer]';
     },
     /**
      * 字符串判断
@@ -19,6 +19,12 @@ Utils = {
         return (typeof str === 'string' || Object.prototype.toString.call(str) === '[object String]')
     },
 
+    isBoolean: function (val) {
+        return typeof val === 'boolean' || Object.prototype.toString.call(val) === '[object Boolean]';
+    },
+    isUndefined:function(val){
+      return typeof val === 'undefined';
+    },
     /**
      * 全角英数字转换为半角英数字
      * @param str 值
@@ -62,56 +68,78 @@ Utils = {
         return tmp;
     },
     /**
-     * 半角カナを全角カナに変換する。
+     * 全角カナ转换为半角カナ。
      * @param str
      * @returns {string}
      */
     kaNaToCDB: function (str) {
-        if (typeof(str) !== "string") {
-            console.error('str is not string')
-            return;
+        var tmp = "";
+        if (this.isString(str)) {
+            var kanaMap = {
+                'ガ': 'ｶﾞ', 'ギ': 'ｷﾞ', 'グ': 'ｸﾞ', 'ゲ': 'ｹﾞ', 'ゴ': 'ｺﾞ',
+                'ザ': 'ｻﾞ', 'ジ': 'ｼﾞ', 'ズ': 'ｽﾞ', 'ゼ': 'ｾﾞ', 'ゾ': 'ｿﾞ',
+                'ダ': 'ﾀﾞ', 'ヂ': 'ﾁﾞ', 'ヅ': 'ﾂﾞ', 'デ': 'ﾃﾞ', 'ド': 'ﾄﾞ',
+                'バ': 'ﾊﾞ', 'ビ': 'ﾋﾞ', 'ブ': 'ﾌﾞ', 'ベ': 'ﾍﾞ', 'ボ': 'ﾎﾞ',
+                'パ': 'ﾊﾟ', 'ピ': 'ﾋﾟ', 'プ': 'ﾌﾟ', 'ペ': 'ﾍﾟ', 'ポ': 'ﾎﾟ',
+                'ヴ': 'ｳﾞ', 'ヷ': 'ﾜﾞ', 'ヺ': 'ｦﾞ',
+                'ア': 'ｱ', 'イ': 'ｲ', 'ウ': 'ｳ', 'エ': 'ｴ', 'オ': 'ｵ',
+                'カ': 'ｶ', 'キ': 'ｷ', 'ク': 'ｸ', 'ケ': 'ｹ', 'コ': 'ｺ',
+                'サ': 'ｻ', 'シ': 'ｼ', 'ス': 'ｽ', 'セ': 'ｾ', 'ソ': 'ｿ',
+                'タ': 'ﾀ', 'チ': 'ﾁ', 'ツ': 'ﾂ', 'テ': 'ﾃ', 'ト': 'ﾄ',
+                'ナ': 'ﾅ', 'ニ': 'ﾆ', 'ヌ': 'ﾇ', 'ネ': 'ﾈ', 'ノ': 'ﾉ',
+                'ハ': 'ﾊ', 'ヒ': 'ﾋ', 'フ': 'ﾌ', 'ヘ': 'ﾍ', 'ホ': 'ﾎ',
+                'マ': 'ﾏ', 'ミ': 'ﾐ', 'ム': 'ﾑ', 'メ': 'ﾒ', 'モ': 'ﾓ',
+                'ヤ': 'ﾔ', 'ユ': 'ﾕ', 'ヨ': 'ﾖ',
+                'ラ': 'ﾗ', 'リ': 'ﾘ', 'ル': 'ﾙ', 'レ': 'ﾚ', 'ロ': 'ﾛ',
+                'ワ': 'ﾜ', 'ヲ': 'ｦ', 'ン': 'ﾝ',
+                'ァ': 'ｧ', 'ィ': 'ｨ', 'ゥ': 'ｩ', 'ェ': 'ｪ', 'ォ': 'ｫ',
+                'ッ': 'ｯ', 'ャ': 'ｬ', 'ュ': 'ｭ', 'ョ': 'ｮ',
+                '。': '｡', '、': '､', 'ー': 'ｰ', '「': '｢', '」': '｣', '・': '･'
+            };
+            var reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
+            tmp = str.replace(reg, function (match) {
+                return kanaMap[match];
+            });
+        } else {
+            console.log('这不是一个字符串')
         }
-        var kanaMap = {
-            'ガ': 'ｶﾞ', 'ギ': 'ｷﾞ', 'グ': 'ｸﾞ', 'ゲ': 'ｹﾞ', 'ゴ': 'ｺﾞ',
-            'ザ': 'ｻﾞ', 'ジ': 'ｼﾞ', 'ズ': 'ｽﾞ', 'ゼ': 'ｾﾞ', 'ゾ': 'ｿﾞ',
-            'ダ': 'ﾀﾞ', 'ヂ': 'ﾁﾞ', 'ヅ': 'ﾂﾞ', 'デ': 'ﾃﾞ', 'ド': 'ﾄﾞ',
-            'バ': 'ﾊﾞ', 'ビ': 'ﾋﾞ', 'ブ': 'ﾌﾞ', 'ベ': 'ﾍﾞ', 'ボ': 'ﾎﾞ',
-            'パ': 'ﾊﾟ', 'ピ': 'ﾋﾟ', 'プ': 'ﾌﾟ', 'ペ': 'ﾍﾟ', 'ポ': 'ﾎﾟ',
-            'ヴ': 'ｳﾞ', 'ヷ': 'ﾜﾞ', 'ヺ': 'ｦﾞ',
-            'ア': 'ｱ', 'イ': 'ｲ', 'ウ': 'ｳ', 'エ': 'ｴ', 'オ': 'ｵ',
-            'カ': 'ｶ', 'キ': 'ｷ', 'ク': 'ｸ', 'ケ': 'ｹ', 'コ': 'ｺ',
-            'サ': 'ｻ', 'シ': 'ｼ', 'ス': 'ｽ', 'セ': 'ｾ', 'ソ': 'ｿ',
-            'タ': 'ﾀ', 'チ': 'ﾁ', 'ツ': 'ﾂ', 'テ': 'ﾃ', 'ト': 'ﾄ',
-            'ナ': 'ﾅ', 'ニ': 'ﾆ', 'ヌ': 'ﾇ', 'ネ': 'ﾈ', 'ノ': 'ﾉ',
-            'ハ': 'ﾊ', 'ヒ': 'ﾋ', 'フ': 'ﾌ', 'ヘ': 'ﾍ', 'ホ': 'ﾎ',
-            'マ': 'ﾏ', 'ミ': 'ﾐ', 'ム': 'ﾑ', 'メ': 'ﾒ', 'モ': 'ﾓ',
-            'ヤ': 'ﾔ', 'ユ': 'ﾕ', 'ヨ': 'ﾖ',
-            'ラ': 'ﾗ', 'リ': 'ﾘ', 'ル': 'ﾙ', 'レ': 'ﾚ', 'ロ': 'ﾛ',
-            'ワ': 'ﾜ', 'ヲ': 'ｦ', 'ン': 'ﾝ',
-            'ァ': 'ｧ', 'ィ': 'ｨ', 'ゥ': 'ｩ', 'ェ': 'ｪ', 'ォ': 'ｫ',
-            'ッ': 'ｯ', 'ャ': 'ｬ', 'ュ': 'ｭ', 'ョ': 'ｮ',
-            '。': '｡', '、': '､', 'ー': 'ｰ', '「': '｢', '」': '｣', '・': '･'
-        };
-        var result = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
-        str = str.replace(result, function (match) {
-            return kanaMap[match];
-        });
-        return str;
+        return tmp;
     },
+
     /**
-     * 半角を全角に変換する。
-     * @param str
+     * 全角字符串转换成半角字符串
+     * @param str 字符串
+     * @param isNE 英数字是否转换，默认为true
+     * @param isSpaces 空格是否转换，默认为true
+     * @param isKaNa カナ是否转换，默认为true
      * @returns {*}
      */
-    toCDB: function (str) {
-        if (typeof(str) !== "string") {
-            console.error('str is not string')
-            return;
+    toCDB: function (str, isNE, isSpaces, isKaNa) {
+        if (this.isUndefined(isNE)) {
+            isNE = true;
         }
-        str = this.numberAndEnglishToCDB(str);
-        str = this.spacesToCDB(str)
-        str = this.kaNaToCDB(str);
-        return str;
+        if (this.isUndefined(isSpaces)) {
+            isSpaces = true;
+        }
+        if (this.isUndefined(isKaNa)) {
+            isKaNa = true;
+        }
+        var tmp = str;
+        if (this.isString(str) && this.isBoolean(isNE) && this.isBoolean(isSpaces) && this.isBoolean(isKaNa)) {
+            if (isNE){
+                tmp = this.numberAndEnglishToCDB(tmp);
+            }
+            if (isSpaces){
+                tmp = this.spacesToCDB(tmp);
+            }
+            if(isKaNa){
+                tmp = this.kaNaToCDB(tmp);
+            }
+        } else {
+            console.log('参数不正确，第一个参数为string，后三个参数为boolean')
+            tmp = "";
+        }
+        return tmp;
     },
 
     /**
