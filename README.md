@@ -22,3 +22,9 @@
     Utils.numberAndEnglishToCDB("ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＳＹＺ");//ABCDEFGHIJKLMNOPQRSTUVWSYZ
     Utils.numberAndEnglishToCDB("１２３４５６７８９０");//1234567890
 ```
+## spacesToCDB(str)
+字符串中的全角空格转换为半角空格。
+```javascript 1.5
+    Utils.spacesToCDB("ａｂｃ　ＡＢＣ　１２３");//ａｂｃ ＡＢＣ １２３
+    Utils.spacesToCDB("ａｂｃ ＡＢＣ　１２３");//ａｂｃ ＡＢＣ １２３
+```

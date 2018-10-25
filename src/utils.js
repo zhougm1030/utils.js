@@ -41,25 +41,23 @@ Utils = {
         return tmp;
     },
     /**
-     * 半角スペースを全角スペースに変換する。
-     * @param str
+     * 全角空格转换为半角空格。
+     * @param str 字符串
      * @returns {string}
      */
     spacesToCDB: function (str) {
         var tmp = "";
-        if (typeof(str) !== "string") {
-            console.error('str is not string')
-            return;
-        }
-        for (var i = 0; i < str.length; i++) {
-            // 文字のアンコールコードを取得すろ
-            var code = str.charCodeAt(i);
-            if (code === 12288) {
-                // 全角スペースを半角スペースに変換する
-                tmp += String.fromCharCode(str.charCodeAt(i) - 12288 + 32);
-            } else {
-                tmp += str.charAt(i);
+        if (this.isString(str)) {
+            for (var i = 0; i < str.length; i++) {
+                var code = str.charCodeAt(i);
+                if (code === 12288) {
+                    tmp += String.fromCharCode(str.charCodeAt(i) - 12288 + 32);
+                } else {
+                    tmp += str.charAt(i);
+                }
             }
+        } else {
+            console.log('这不是一个字符串')
         }
         return tmp;
     },
