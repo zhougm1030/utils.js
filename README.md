@@ -1,5 +1,5 @@
 # utils
-<p align="center">
+<p align="left">
   <a href="#">
     <img src="https://img.shields.io/badge/dev-v1.0.0-green.svg" alt="version">
   </a>
@@ -7,7 +7,8 @@
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License MIT">
   </a>
 </p>
-开发中常用函数
+
+常用工具函数
 
 ## isInteger(number)
 判断number是否是整数。
