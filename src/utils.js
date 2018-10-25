@@ -22,7 +22,7 @@ Utils = {
     /**
      * 全角英数字转换为半角英数字
      * @param str 值
-     * @returns {string}
+     * @returns {string} 半角英数字
      */
     numberAndEnglishToCDB: function (str) {
         var tmp = "";
