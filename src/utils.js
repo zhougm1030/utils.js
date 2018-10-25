@@ -2,15 +2,18 @@ function Utils() {
 }
 
 Utils = {
-    isNumber:function(val){
+    isInteger: function (number) {
+        return (typeof number === 'number') && (number % 1 === 0);
+    },
+    isNumber: function (val) {
         var reg = /^[0-9]+?[0-9]*$/;
-        if(reg.test(val)){
-            console.error('这个值不是数字')
+        if (reg.test(val)) {
+
             return false;
         }
         return true;
     },
-    isString:function(input){
+    isString: function (input) {
 
     },
 
@@ -300,7 +303,7 @@ Utils = {
         } else if (str.length === 14) {
             pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
             dateStr = str.replace(pattern, '$1/$2/$3 $4:$5:$6');
-        }else {
+        } else {
             console.error('format error,eg:YYYYMMDD or YYYYMMDDhhmmss');
         }
         var date = "";
