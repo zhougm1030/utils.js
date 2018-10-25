@@ -268,37 +268,53 @@ Utils = {
         return tmp;
     },
     /**
-     * ひらがなをカタカナに変換する
-     * @param str
+     * 平假名转换成片假名
+     * @param str 平假名字符串
      * @returns {string}
      */
-    hiraToKaNa: function (str) {
-        if (typeof(str) !== "string") {
-            console.error('str is not string')
-            return;
+    hiRaToKaNa: function (str) {
+        var tmp = "";
+        if (this.isString(str)) {
+            tmp = str.replace(/[\u3041-\u3096]/g, function (match) {
+                var chr = match.charCodeAt(0) + 0x60;
+                return String.fromCharCode(chr);
+            });
+        } else {
+            console.error("这不是一个字符串");
         }
-        var tmp = str.replace(/[\u3041-\u3096]/g, function (match) {
-            var chr = match.charCodeAt(0) + 0x60;
-            return String.fromCharCode(chr);
-        });
         return tmp;
     },
     /**
-     * カタカナをひらがなに変換する
-     * @param str
-     * @returns {void | string | *}
+     * 片假名转平假名。
+     * @param str 字符串
+     * @returns {string}
      */
-    kaNaToHira: function (str) {
-        if (typeof(str) !== "string") {
-            console.error('str is not string')
-            return;
+    kaNaToHiRa: function (str) {
+        var tmp = "";
+        if (this.isString(str)) {
+            tmp = str.replace(/[\u30a1-\u30f6]/g, function (match) {
+                var chr = match.charCodeAt(0) - 0x60;
+                return String.fromCharCode(chr);
+            });
+        } else {
+            console.error("这不是一个字符串");
         }
-        var tmp = str.replace(/[\u30a1-\u30f6]/g, function (match) {
-            var chr = match.charCodeAt(0) - 0x60;
-            return String.fromCharCode(chr);
-        });
         return tmp;
-
+    },
+    /**
+     * 片假名(包含半角片假名)转平假名。
+     * @param str 字符串
+     * @returns {string}
+     */
+    kaNaToHiRaContainCDB: function (str) {
+        var tmp = "";
+        if (this.isString(str)) {
+            tmp = this.kaNaToDBC(str);
+            tmp = this.kaNaToHiRa(tmp);
+        } else {
+            console.error("这不是一个字符串");
+        }
+        return tmp;
     },
     /**
      * 日期格式化

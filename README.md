@@ -1,4 +1,4 @@
-# utils
+# utils.js
 <p align="left">
   <a href="#">
     <img src="https://img.shields.io/badge/dev-v1.0.0-green.svg" alt="version">
@@ -8,7 +8,7 @@
   </a>
 </p>
 
-常用工具函数
+常用工具函数。
 
 ## isInteger(number)
 判断number是否是整数。
@@ -88,4 +88,21 @@
 ```javascript 1.5
     Utils.toDBC("abc ABC 123　ｱｲｳｴｵ");//ａｂｃ　ＡＢＣ　１２３　アイウエオ
     Utils.toDBC("abc ABC 123　ｱｲｳｴｵ",false,false);//abc ABC 123 アイウエオ
+```
+## hiRaToKaNa(str)
+日语中，平假名转片假名。
+```javascript 1.5
+    Utils.hiRaToKaNa("あいうえお");//アイウエオ
+    Utils.hiRaToKaNa("あいうえお ｱｲｳｴｵ");//アイウエオ ｱｲｳｴｵ
+```
+## kaNaToHiRa(str)
+日语中，片假名(不包含半角片假名)转换成平假名。
+```javascript 1.5
+    Utils.kaNaToHiRa("アイウエオ");//あいうえお
+    Utils.kaNaToHiRa("アイウエオ　ｱｲｳｴｵ　あいうえお");//あいうえお　ｱｲｳｴｵ　あいうえお
+```
+## kaNaToHiRaContainCDB(str)
+片假名(包含半角片假名)转平假名。
+```javascript 1.5
+    Utils.kaNaToHiRaContainCDB("アイウエオ　ｱｲｳｴｵ　あいうえお");//あいうえお　あいうえお　あいうえお
 ```
