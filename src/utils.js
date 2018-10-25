@@ -1,3 +1,9 @@
+/**
+ * Copyright 2018 The Utils Developers
+ *
+ * @author Mr.Zhou
+ * @version 1.0.0
+ */
 function Utils() {
 }
 

@@ -1,5 +1,13 @@
 # utils
-工作中使用的工具类
+<p align="center">
+  <a href="#">
+    <img src="https://img.shields.io/badge/dev-v1.0.0-green.svg" alt="version">
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License MIT">
+  </a>
+</p>
+开发中常用函数
 
 ## isInteger(number)
 判断number是否是整数。
