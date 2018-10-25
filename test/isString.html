@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>isInteger</title>
+    <title>isString</title>
 </head>
 <body>
 
@@ -10,11 +10,11 @@
 
 <script>
     var number = 1;
-    console.log(Utils.isInteger(number));
+    console.log(Utils.isString(number));
     var str = '1';
-    console.log(Utils.isInteger(str));
-    var f = 1.1;
-    console.log(Utils.isInteger(f));
+    console.log(Utils.isString(str));
+    var objStr = new String('1');
+    console.log(Utils.isString(objStr));
 
 </script>
 </body>

@@ -5,16 +5,8 @@ Utils = {
     isInteger: function (number) {
         return (typeof number === 'number') && (number % 1 === 0);
     },
-    isNumber: function (val) {
-        var reg = /^[0-9]+?[0-9]*$/;
-        if (reg.test(val)) {
-
-            return false;
-        }
-        return true;
-    },
-    isString: function (input) {
-
+    isString: function (str) {
+        return (typeof str === 'string' || Object.prototype.toString.call(str) === '[object String]')
     },
 
     /**
