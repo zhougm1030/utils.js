@@ -53,3 +53,30 @@
     Utils.toCDB("ａｂｃ　ＡＢＣ　１２３ アイウエオ");//abc ABC 123 ｱｲｳｴｵ
     Utils.toCDB("ａｂｃ ＡＢＣ　１２３　アイウエオ",false,false);//ａｂｃ ＡＢＣ　１２３　ｱｲｳｴｵ
 ```
+## numberAndEnglishToDBC(str)
+半角英数字转全角英数字。
+```javascript 1.5
+    Utils.numberAndEnglishToDBC("abcdefghijklmnopqrstuvwsyz");//ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｓｙｚ
+    Utils.numberAndEnglishToDBC("ABCDEFGHIJKLMNOPQRSTUVWSYZ");//ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＳＹＺ
+    Utils.numberAndEnglishToDBC("1234567890");//１２３４５６７８９０
+    Utils.numberAndEnglishToDBC("~!@#$%^&*():'<>?,./");//～！＠＃＄％＾＆＊（）：＇＜＞？，．／
+```
+## spacesToDBC(str)
+半角空格转换成全角空格。
+```javascript 1.5
+    Utils.spacesToDBC("abc ABC 123");//abc　ABC　123
+```
+## kaNaToDBC(str)
+半角カナ转换成全角カナ。
+```javascript 1.5
+    Utils.kaNaToDBC("ｱｲｳｴｵ");//アイウエオ
+```
+## toDBC(str,isNE, isSpaces, isKaNa)
+半角字符串转换成全角字符串，默认英数字，空格，カナ都准换。
+* 如果isNE为false的话，不转英数字；
+* 如果isSpaces为false的话，不转空格；
+* 如果isKaNa为false的话，不转カナ。
+```javascript 1.5
+    Utils.toDBC("abc ABC 123　ｱｲｳｴｵ");//ａｂｃ　ＡＢＣ　１２３　アイウエオ
+    Utils.toDBC("abc ABC 123　ｱｲｳｴｵ",false,false);//abc ABC 123 アイウエオ
+```
