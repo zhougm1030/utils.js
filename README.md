@@ -135,3 +135,14 @@
     Utils.strToDate('20180102181225555','YYYYMMDDhhmmssSSS');//Tue Jan 02 2018 18:12:25 GMT+0900 (東京 (標準時))
     Utils.strToDate('2018-01-02','YYYY-MM-DD');//Tue Jan 02 2018 00:00:00 GMT+0900 (東京 (標準時))
 ```
+## strToTimestamp(str,strFormat)
+字符串格式的时间，转换成时间戳。
+```javascript 1.5
+    Utils.strToTimestamp('20180102181225555','YYYYMMDDhhmmssSSS');//1514884346
+```
+##nowTimestamp()
+当前时间戳。
+```javascript 1.5
+    Utils.nowTimestamp();//1540542098
+```
+

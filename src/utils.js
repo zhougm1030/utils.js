@@ -418,18 +418,30 @@ Utils = {
     },
 
     /**
-     * 字符串格式的时间，转换成时间戳
-     * @param str
-     * @param separator
+     * 字符串格式的时间，转换成时间戳。
+     * @param str 时间字符串
+     * @param strFormat 时间字符串的格式
+     * @returns {string}
+     */
+    strToTimestamp: function (str, strFormat) {
+        var timestamp = "";
+        if (this.isString(str) && this.isString(strFormat)) {
+            var date = this.strToDate(str, strFormat);
+            timestamp = Math.round(date.getTime() / 1000);
+        } else {
+            console.error('参数类型不正确。')
+        }
+        return timestamp;
+    },
+    /**
+     * 当前时间戳
      * @returns {number}
      */
-    strToTimestamp: function (str, separator) {
-        var dateStr = str.replace("/" + separator + "/g", '/');
-        var date = new Date(dateStr);
+    nowTimestamp: function () {
+        var date = new Date();
         var timestamp = Math.round(date.getTime() / 1000);
         return timestamp;
     },
-
     countDay: function (date, diff) {
         if (!(date instanceof Date)) {
             console.error('date is not Date');
