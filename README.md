@@ -140,7 +140,7 @@
 ```javascript 1.5
     Utils.strToTimestamp('20180102181225555','YYYYMMDDhhmmssSSS');//1514884346
 ```
-##nowTimestamp()
+## nowTimestamp()
 当前时间戳。
 ```javascript 1.5
     Utils.nowTimestamp();//1540542098
