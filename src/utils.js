@@ -24,12 +24,29 @@ Utils = {
     isString: function (str) {
         return (typeof str === 'string' || Object.prototype.toString.call(str) === '[object String]')
     },
-
+    /**
+     * 布尔类型判断
+     * @param val
+     * @returns {boolean}
+     */
     isBoolean: function (val) {
         return typeof val === 'boolean' || Object.prototype.toString.call(val) === '[object Boolean]';
     },
+    /**
+     * 判断值是否是undefined
+     * @param val
+     * @returns {boolean}
+     */
     isUndefined: function (val) {
         return typeof val === 'undefined';
+    },
+    /**
+     * 时间对象判断
+     * @param obj
+     * @returns {boolean}
+     */
+    isDate: function (obj) {
+        return Object.prototype.toString.call(obj) === '[object Date]';
     },
     /**
      * 全角英数字转换为半角英数字
@@ -333,58 +350,68 @@ Utils = {
      * @param strFormat {String}
      * @returns {string}
      */
-    dateFormat(date, strFormat) {
-
-        if (!(date instanceof Date)) {
-            console.error('date is not Date');
-            return;
+    dateFormat: function (date, strFormat) {
+        var dateFormatAfter = "";
+        if (this.isDate(date) && this.isString(strFormat)) {
+            var year = date.getFullYear(),
+                month = date.getMonth() + 1,
+                day = date.getDate(),
+                hour = date.getHours(),
+                min = date.getMinutes(),
+                sec = date.getSeconds(),
+                msec = date.getMilliseconds();
+            var preArr = Array.apply(null, Array(10)).map(function (elem, index) {
+                return '0' + index;
+            });
+            dateFormatAfter = strFormat.replace(/YYYY/g, year)
+                .replace(/MM/g, preArr[month] || month)
+                .replace(/M/g, month)
+                .replace(/DD/g, preArr[day] || day)
+                .replace(/D/g, day)
+                .replace(/hh/g, preArr[hour] || hour)
+                .replace(/h/g, hour)
+                .replace(/mm/g, preArr[min] || min)
+                .replace(/m/g, min)
+                .replace(/ss/g, preArr[sec] || sec)
+                .replace(/s/g, sec)
+                .replace(/SSS/g, msec);
+        } else {
+            console.error('参数类型不正确。')
         }
-        console.log(typeof (strFormat))
-        if (typeof(strFormat) !== 'string') {
-            console.error('strFormat is not String');
-            return;
-        }
-        var year = date.getFullYear(),
-            month = date.getMonth() + 1,
-            day = date.getDate(),
-            hour = date.getHours(),
-            min = date.getMinutes(),
-            sec = date.getSeconds();
-        var preArr = Array.apply(null, Array(10)).map(function (elem, index) {
-            return '0' + index;
-        });
-        var dateFormatAfter = strFormat.replace(/YYYY/g, year)
-            .replace(/MM/g, preArr[month] || month)
-            .replace(/M/g, month)
-            .replace(/DD/g, preArr[day] || day)
-            .replace(/D/g, day)
-            .replace(/hh/g, preArr[hour] || hour)
-            .replace(/h/g, hour)
-            .replace(/mm/g, preArr[min] || min)
-            .replace(/m/g, min)
-            .replace(/ss/g, preArr[sec] || sec)
-            .replace(/s/g, sec);
-
         return dateFormatAfter;
     },
 
     /**
-     * 字符串格式的日期，转换成Date对象
-     * @param str
-     * @returns {Date}
+     * 字符串转Date对象
+     * @param str 时间字符串
+     * @param strFormat 时间字符串的格式
+     * @returns {Date} 时间对象
      */
-    strToDate: function (str) {
-        var dateStr = "";
-        var pattern = "";
-        if (str.length === 8) {
-            pattern = /(\d{4})(\d{2})(\d{2})/;
-            dateStr = str.replace(pattern, '$1/$2/$3');
-        } else if (str.length === 14) {
-            pattern = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/;
-            dateStr = str.replace(pattern, '$1/$2/$3 $4:$5:$6');
-        } else {
-            console.error('format error,eg:YYYYMMDD or YYYYMMDDhhmmss');
-        }
+    strToDate: function (str, strFormat) {
+        var patternStr = strFormat.replace(/YYYY/g, '(\\d{4})')
+            .replace(/MM/g, '(\\d{2})')
+            .replace(/DD/g, '(\\d{2})')
+            .replace(/hh/g, '(\\d{2})')
+            .replace(/mm/g, '(\\d{2})')
+            .replace(/ss/g, '(\\d{2})')
+            .replace(/SSS/g, '(\\d{3})');
+        var reg = new RegExp(patternStr);
+        var dateStr = str.replace(reg, function (rs, $1, $2, $3, $4, $5, $6, $7) {
+            if ($4 === 0) {
+                $4 = "00";
+                $5 = "00";
+                $6 = "00";
+                $7 = "000";
+            }
+            if ($6 === 0) {
+                $6 = "00";
+                $7 = "000";
+            }
+            if ($7 === 0) {
+                $7 = "000";
+            }
+            return $1 + "/" + $2 + "/" + $3 + " " + $4 + ":" + $5 + ":" + $6 + "." + $7;
+        });
         var date = "";
         date = new Date(dateStr);
         return date;

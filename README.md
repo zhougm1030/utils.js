@@ -32,6 +32,12 @@
     Utils.isBoolean(new Boolean(true));//true
     Utils.isBoolean('true');//false
 ```
+# isDate(obj)
+时间对象判断
+```javascript 1.5
+    Utils.isDate("20181025");//false
+    Utils.isDate(new Date());//true
+```
 ## numberAndEnglishToCDB(str)
 全角英数字转换为半角英数字（不包含全角空格）。
 ```javascript 1.5
@@ -105,4 +111,27 @@
 片假名(包含半角片假名)转平假名。
 ```javascript 1.5
     Utils.kaNaToHiRaContainCDB("アイウエオ　ｱｲｳｴｵ　あいうえお");//あいうえお　あいうえお　あいうえお
+```
+## dateFormat(date, strFormat)
+日期格式化。第一个参数必须是Date类型。
+* MM:月(带0)
+* DD:日(带0)
+* hh:时(带0)
+* mm:分(带0)
+* ss:秒(带0)
+* M:月(不带0)
+* D:日(不带0)
+* h:时(不带0)
+* m:分(不带0)
+* s:秒(不带0)
+* SSS:毫秒
+```javascript 1.5
+    Utils.dateFormat(new Date(),'YYYY-MM-DD hh:mm:ss.SSS');//2018-10-25 18:30:25.837
+    Utils.dateFormat(new Date(),'YYYY-M-D h:m:s.SSS');//2018-10-25 18:30:25.837
+```
+## strToDate(str,strFormat)
+字符串转Date对象。时间使用格式参照【dateFormat】。
+```javascript 1.5
+    Utils.strToDate('20180102181225555','YYYYMMDDhhmmssSSS');//Tue Jan 02 2018 18:12:25 GMT+0900 (東京 (標準時))
+    Utils.strToDate('2018-01-02','YYYY-MM-DD');//Tue Jan 02 2018 00:00:00 GMT+0900 (東京 (標準時))
 ```
