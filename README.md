@@ -145,4 +145,11 @@
 ```javascript 1.5
     Utils.nowTimestamp();//1540542098
 ```
+## dateCount(date, diff, type)
+日期计算,返回时间格式日期
+```javascript 1.5
+    Utils.dateCount(new Date(), -1,'y');//Thu Oct 26 2017 21:06:29 GMT+0800 (中国标准时间)
+    Utils.dateCount(new Date(), 2,'m');//Sun Aug 26 2018 21:06:29 GMT+0800 (中国标准时间)
+    Utils.dateCount(new Date(), 1,'d');//Sat Oct 27 2018 21:06:29 GMT+0800 (中国标准时间)
+```
 

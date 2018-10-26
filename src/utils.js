@@ -254,7 +254,7 @@ Utils = {
      * @returns {string}
      */
     toDBC: function (str, isNE, isSpaces, isKaNa) {
-        if (typeof(str) !== "string") {
+        if (typeof (str) !== "string") {
             console.error('str is not string');
             return;
         }
@@ -442,14 +442,47 @@ Utils = {
         var timestamp = Math.round(date.getTime() / 1000);
         return timestamp;
     },
-    countDay: function (date, diff) {
-        if (!(date instanceof Date)) {
-            console.error('date is not Date');
-            return;
+    /**
+     * 日期计算
+     * @param {Date} date 日期
+     * @param {number} diff 差值
+     * @param {string} type  计算类型
+     *     ‘y’：年，‘m’：月，‘d’：日
+     */
+    dateCount: function (date, diff, type) {
+
+        if (!this.isDate(date)) {
+            console.error("参数格式不正确！");
+            return "";
         }
-        var day = date.getDate();
-        var newDate = day + diff;
-        date.setDate(newDate);
+        if (!this.isInteger(diff)) {
+            console.error("参数格式不正确！");
+            return "";
+        }
+        if (!this.isString) {
+            console.error("参数格式不正确！");
+            return "";
+        }
+
+        switch (type) {
+            case 'y':
+                var year = date.getFullYear();
+                var newYear = year + diff;
+                date.setFullYear(newYear);
+                break;
+            case 'm':
+                var month = date.getMonth();
+                var newMonth = month + diff;
+                date.setMonth(newMonth);
+                break;
+            case 'd':
+                var day = date.getDate();
+                var newDate = day + diff;
+                date.setDate(newDate);
+                break;
+            default:
+                break;
+        }
         return date;
     }
 };

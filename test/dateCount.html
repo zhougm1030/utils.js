@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dateCount</title>
+</head>
+
+<body>
+    <script src="../src/utils.js"></script>
+    <script type="text/javascript">
+
+        var date1 = Utils.dateCount(new Date(), 1,'d');
+        var date2 = Utils.dateCount(new Date(), -1,'y');
+        var date3 = Utils.dateCount(new Date(), -2,'m');
+        console.log("Utils.dateCount(new Date(), -1,'y');//" + date2);
+        console.log("Utils.dateCount(new Date(), 2,'m');//" + date3);
+        console.log("Utils.dateCount(new Date(), 1,'d');//" + date1);
+
+        
+    </script>
+</body>
+
+</html>
